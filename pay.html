@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thanh toán</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #020617;
+    color: white;
+    margin: 0;
+}
+
+/* KHUNG CỐ ĐỊNH */
+.box {
+    background: #1e293b;
+    padding: 20px;
+    width: 320px;
+    border-radius: 10px;
+    text-align: center;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+button {
+    margin-top: 15px;
+    background: #22c55e;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #16a34a;
+}
+
+/* TUYẾT */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    color: white;
+    animation: fall linear infinite;
+    z-index: 1;
+}
+
+@keyframes fall {
+    to { transform: translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+    <h2>Thông tin thanh toán</h2>
+
+    <p><b>Gói đã chọn:</b> <span id="goi"></span></p>
+
+    <p><b>STK:</b> 0588807300000</p>
+    <p><b>Chủ TK:</b> Cao Minh Duy</p>
+
+    <p>
+        <b>Nội dung CK:</b><br>
+        <span id="noidung" style="color:#22c55e; font-weight:bold;"></span>
+    </p>
+
+    <p style="color: yellow; font-weight: bold;">
+        ⚠️ Quan trọng: Khi nhập nội dung chuyển khoản vui lòng nhập kèm số điện thoại của bạn
+    </p>
+
+    <button onclick="paid()">Tôi đã thanh toán</button>
+</div>
+
+<script>
+// LẤY GÓI
+const params = new URLSearchParams(window.location.search);
+const goi = params.get("goi") || "Không xác định";
+document.getElementById("goi").innerText = goi;
+
+// RANDOM MDUYK
+function generateContent() {
+    let num = Math.floor(100000 + Math.random() * 900000);
+    return "MDUYK" + num;
+}
+document.getElementById("noidung").innerText = generateContent();
+
+function paid() {
+    alert("Nếu quên ghi số điện thoại vui lòng liên hệ admin: 0328033706");
+}
+
+/* TUYẾT */
+function snow() {
+    const s = document.createElement("div");
+    s.className = "snowflake";
+    s.innerHTML = "❄";
+
+    s.style.left = Math.random() * window.innerWidth + "px";
+    s.style.fontSize = (10 + Math.random() * 10) + "px";
+    s.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(s);
+
+    setTimeout(() => s.remove(), 10000);
+}
+setInterval(snow, 150);
+</script>
+
+</body>
+</html>
